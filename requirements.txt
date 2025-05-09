@@ -1,18 +1,9 @@
-# App principale
-streamlit
-spacy
-
-# Modèle spaCy français (via lien direct)
+gradio==4.26.0
+spacy==3.7.2
 fr-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
 
-# Lecture de documents
-python-docx
-PyMuPDF
-pdf2image
-pytesseract
-
-# Pour OCR (Tesseract)
-pillow
-
-# Pour éviter erreurs liées à numpy ou versions natives
-numpy<1.25
+pymupdf==1.23.7
+python-docx==1.1.0
+pdf2image==1.17.0
+pytesseract==0.3.10
+Pillow==10.2.0

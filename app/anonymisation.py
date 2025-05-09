@@ -1,14 +1,14 @@
 import re
 import spacy
 
-# Tentative de chargement du modèle français
+# Chargement du modèle français
 def load_spacy_model():
     try:
         return spacy.load("fr_core_news_sm")
     except OSError:
         raise RuntimeError(
             "Le modèle spaCy 'fr_core_news_sm' est manquant. "
-            "Ajoutez-le dans le Dockerfile ou requirements.txt avec : "
+            "Ajoutez-le à requirements.txt ou installez-le avec : "
             "python -m spacy download fr_core_news_sm"
         )
 
@@ -16,17 +16,15 @@ nlp = load_spacy_model()
 
 def detect_entities_with_offsets(text):
     """
-    Détecte les entités sensibles dans le texte (NLP + regex)
+    Détecte les entités sensibles (NLP + regex).
     """
     doc = nlp(text)
     entities = []
 
-    # Entités nommées
     for ent in doc.ents:
         if ent.label_ in ["PER", "ORG", "LOC", "DATE"]:
             entities.append((ent.label_, ent.start_char, ent.end_char))
 
-    # Email & téléphone via regex
     regex_patterns = {
         "EMAIL": r"[\w\.-]+@[\w\.-]+",
         "TEL": r"\+?\d[\d\s\-]{7,}\d"
@@ -40,7 +38,7 @@ def detect_entities_with_offsets(text):
 
 def anonymiser_texte(text):
     """
-    Remplace les entités détectées par des balises [ANONYME-...]
+    Remplace les entités par des balises [ANONYME-...].
     """
     entities = detect_entities_with_offsets(text)
     for label, start, end in sorted(entities, key=lambda x: -x[1]):
