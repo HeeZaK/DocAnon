@@ -1,24 +1,11 @@
-# Interface utilisateur
 streamlit>=1.30.0
-
-# Traitement PDF et images scannées
 pdf2image
 pytesseract
 Pillow
-
-# Traitement des fichiers Word (.docx)
 python-docx
-
-# Traitement PDF natifs
 PyMuPDF
-
-# Extraction texte OCR ou brut
 textract
-
-# Traitement du langage naturel (NLP)
 spacy
 scikit-learn
-
-# Modèles de langage avancés (optionnel pour classification, résumé, etc.)
 transformers
 torch
