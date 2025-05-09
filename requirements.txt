@@ -1,25 +1,30 @@
-# Interface web
+# Interface utilisateur
 streamlit>=1.30.0
 
-# OCR & images
-pytesseract
+# Traitement PDF et images scannées
 pdf2image
+pytesseract
 Pillow
 
-# Fichiers bureautiques
+# Fichiers Word (.docx)
 python-docx
+
+# Traitement PDF natifs
 PyMuPDF
 
-# Extraction de texte brut ou OCR
+# Extraction OCR ou brute (attention : textract peut avoir des dépendances C lourdes)
 textract
 
-# NLP & NER
-spacy==3.7.2
+# Traitement du langage naturel
+spacy==3.7.2           # Version stable compatible avec fr_core_news_sm-3.7.0
 scikit-learn
 
-# Modèle français spaCy
-fr_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
+# Modèles avancés (transformers, torch) — pour résumé/classification
+transformers
+torch==2.1.2           # Évite les erreurs de compatibilité avec numpy
 
-# Modèles de langage avancés (version compatible Python 3.10)
-transformers==4.36.2
-torch==2.1.0
+# Fix pour erreurs numpy/torch
+numpy==1.24.4          # Compatible avec torch et évite le dtype size mismatch
+
+# Optionnel : télécharger fr_core_news_sm automatiquement
+# Installer séparément dans le code ou dans un setup.sh
