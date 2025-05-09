@@ -1,11 +1,26 @@
-streamlit>=1.30.0
-pdf2image
-pytesseract
-Pillow
-python-docx
-PyMuPDF
-textract
-spacy
-scikit-learn
-transformers
-torch
+# --- Base Streamlit (interface web interactive) ---
+streamlit>=1.30.0  # Framework principal pour créer l’interface web de l'application
+
+# --- OCR et traitement d'images ---
+pdf2image            # Convertit les fichiers PDF en images pour l'OCR
+pytesseract          # Interface Python pour Tesseract, utilisé pour l'OCR (reconnaissance de texte sur images)
+Pillow               # Librairie de traitement d’images utilisée par pdf2image et pour manipuler les images
+
+# --- Traitement de fichiers bureautiques ---
+python-docx          # Extraction et manipulation de fichiers .docx (Word)
+PyMuPDF              # Pour lire et extraire le texte des fichiers PDF natifs (non scannés)
+
+# --- Extraction de texte automatisée ---
+textract             # Librairie polyvalente qui gère l'extraction de texte sur plusieurs types de fichiers
+
+# --- Traitement automatique du langage naturel (TAL / NLP) ---
+spacy                # Librairie NLP moderne, utilisée ici pour détecter les entités nommées
+scikit-learn         # Utilisée pour des modèles de machine learning simples (optionnel pour enrichir le traitement)
+
+# --- Modèles avancés (optionnels) ---
+transformers         # Pour utiliser des modèles de traitement de texte pré-entraînés (ex : BERT)
+torch                # Backend utilisé par certains modèles de transformers (PyTorch)
+
+# --- Modèle français spaCy ---
+# Téléchargement direct du modèle français "fr_core_news_sm" nécessaire à la détection d'entités
+https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
