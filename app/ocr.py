@@ -1,23 +1,13 @@
-# app/ocr.py
+from pdf2image import convert_from_bytes  # Convertit un PDF en images (1 image/page)
+import pytesseract  # Utilisé pour faire l'OCR sur chaque image
 
-import pytesseract
-from pdf2image import convert_from_bytes
-from PIL import Image
-import tempfile
+def extraire_texte_pdf_scane(fichier_pdf):
+    # Convertit les pages du PDF (en mémoire) en images
+    images = convert_from_bytes(fichier_pdf.read())
 
-def extraire_texte(fichier):
-    texte_total = ""
+    texte = ""
+    for image in images:
+        # OCR pour chaque image, avec reconnaissance du français
+        texte += pytesseract.image_to_string(image, lang="fra") + "\n"
 
-    # Si PDF : on convertit en images
-    if fichier.type == "application/pdf":
-        images = convert_from_bytes(fichier.read())
-    else:
-        image = Image.open(fichier)
-        images = [image]
-
-    # Extraction OCR pour chaque page/image
-    for img in images:
-        texte = pytesseract.image_to_string(img, lang='fra')  # 'fra' pour le français
-        texte_total += texte + "\n"
-
-    return texte_total
+    return texte  # Renvoie tout le texte reconnu dans le PDF

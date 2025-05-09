@@ -1,16 +1,9 @@
-# app/ner.py
+import spacy  # Librairie NLP
 
-import spacy
-
-# Chargement du modèle de langue français
+# Charge un modèle français avec reconnaissance d'entités
 nlp = spacy.load("fr_core_news_md")
 
 def detecter_entites(texte):
-    doc = nlp(texte)
-    entites = []
-
-    for ent in doc.ents:
-        if ent.label_ in ["PER", "LOC", "GPE"]:  # PER = personne, LOC = lieu, GPE = pays/villes
-            entites.append((ent.text, ent.label_))
-
-    return entites
+    doc = nlp(texte)  # Analyse le texte avec spaCy
+    # Renvoie une liste de tuples : (texte de l'entité, type)
+    return [(ent.text, ent.label_) for ent in doc.ents]
