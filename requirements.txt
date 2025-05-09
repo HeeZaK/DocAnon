@@ -1,23 +1,17 @@
-# Interface utilisateur
-streamlit==1.32.2
+# Éviter les conflits binaires
+numpy==1.23.5
+spacy==3.7.2
+thinc==8.2.2
+fr_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
 
-# OCR et traitement d'image
+# Le reste de tes dépendances...
+streamlit>=1.30.0
 pdf2image
 pytesseract
 Pillow
-
-# Lecture de documents
 python-docx
 PyMuPDF
 textract
-
-# NLP
-spacy==3.7.2
 scikit-learn
-
-# Modèles avancés
 transformers
-torch==2.1.2
-
-# Fix pour compatibilité numpy
-numpy==1.24.4
+torch
