@@ -1,4 +1,18 @@
-streamlit==1.33.0
-spacy==3.6.0
-numpy==1.24.4
-fr_core_news_md @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.6.0/fr_core_news_md-3.6.0-py3-none-any.whl
+# App principale
+streamlit
+spacy
+
+# Modèle spaCy français (via lien direct)
+fr-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
+
+# Lecture de documents
+python-docx
+PyMuPDF
+pdf2image
+pytesseract
+
+# Pour OCR (Tesseract)
+pillow
+
+# Pour éviter erreurs liées à numpy ou versions natives
+numpy<1.25

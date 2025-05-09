@@ -6,7 +6,7 @@ def highlight_entities(text, entities):
     """
     Surligne les entités détectées dans le texte avec une couleur.
     """
-    sorted_ents = sorted(entities, key=lambda x: x[1])
+    sorted_ents = sorted(entities, key=lambda x: x[1])  # Tri par position
     result = ""
     last_idx = 0
     for label, start, end in sorted_ents:
@@ -17,6 +17,7 @@ def highlight_entities(text, entities):
     return result
 
 def afficher_interface():
+    st.set_page_config(page_title="DocAnon", layout="wide")
     st.title("🕵️ DocAnon - Anonymisation de documents")
 
     uploaded_file = st.file_uploader("📄 Déposez un fichier (PDF ou DOCX)", type=["pdf", "docx"])
@@ -24,7 +25,7 @@ def afficher_interface():
     if uploaded_file:
         texte = detect_type_and_extract(uploaded_file)
 
-        if texte:
+        if texte.strip():
             st.subheader("🔍 Aperçu des entités détectées")
             entities = detect_entities_with_offsets(texte)
             html_text = highlight_entities(texte, entities)
@@ -38,4 +39,4 @@ def afficher_interface():
                 st.subheader("✅ Résultat anonymisé")
                 st.text_area("Texte anonymisé", value=texte_anonyme, height=300)
         else:
-            st.warning("Le texte n'a pas pu être extrait.")
+            st.warning("❌ Le texte n'a pas pu être extrait du fichier.")

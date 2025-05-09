@@ -1,14 +1,18 @@
 import re
 import spacy
-from spacy.cli import download
 
-# Essaie de charger le modèle spaCy français, sinon le télécharge
-try:
-    nlp = spacy.load("fr_core_news_sm")
-except OSError:
-    download("fr_core_news_sm")
-    nlp = spacy.load("fr_core_news_sm")
+# Tentative de chargement du modèle français
+def load_spacy_model():
+    try:
+        return spacy.load("fr_core_news_sm")
+    except OSError:
+        raise RuntimeError(
+            "Le modèle spaCy 'fr_core_news_sm' est manquant. "
+            "Ajoutez-le dans le Dockerfile ou requirements.txt avec : "
+            "python -m spacy download fr_core_news_sm"
+        )
 
+nlp = load_spacy_model()
 
 def detect_entities_with_offsets(text):
     """
