@@ -1,6 +1,6 @@
-streamlit>=1.30.0
+streamlit==1.32.2
 
-# Traitement documents
+# Traitement de texte
 pdf2image
 pytesseract
 Pillow
@@ -10,13 +10,14 @@ textract
 
 # NLP
 spacy==3.7.2
+thinc==8.2.2
 scikit-learn
 transformers==4.37.2
 torch==2.0.1
 numpy==1.23.5
 
-# Autres dépendances (markdown)
+# Affichage / dépendances markdown
 markdown-it-py==3.0.0
 mdurl==0.1.2
-rich==14.0.0
 pygments==2.19.1
+rich==14.0.0
