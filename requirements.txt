@@ -1,6 +1,6 @@
 streamlit>=1.30.0
 
-# Librairies de traitement de documents
+# Traitement documents
 pdf2image
 pytesseract
 Pillow
@@ -11,6 +11,6 @@ textract
 # NLP
 spacy==3.7.2
 scikit-learn
-transformers
+transformers==4.37.2
 torch==2.0.1
 numpy==1.23.5
