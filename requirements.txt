@@ -1,0 +1,8 @@
+streamlit
+pdf2image
+pytesseract
+spacy
+pillow
+scikit-learn
+transformers
+torch
