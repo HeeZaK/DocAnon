@@ -14,3 +14,9 @@ scikit-learn
 transformers==4.37.2
 torch==2.0.1
 numpy==1.23.5
+
+# Autres dépendances (markdown)
+markdown-it-py==3.0.0
+mdurl==0.1.2
+rich==14.0.0
+pygments==2.19.1
