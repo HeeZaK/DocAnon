@@ -1,12 +1,12 @@
 streamlit==1.32.2
 
-# Traitement de texte
+# Traitement de documents
 pdf2image
 pytesseract
 Pillow
 python-docx
 PyMuPDF
-textract
+textract==1.6.5
 
 # NLP
 spacy==3.7.2
@@ -16,7 +16,7 @@ transformers==4.37.2
 torch==2.0.1
 numpy==1.23.5
 
-# Affichage / dépendances markdown
+# Pour Streamlit et markdown
 markdown-it-py==3.0.0
 mdurl==0.1.2
 pygments==2.19.1
