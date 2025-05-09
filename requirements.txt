@@ -1,25 +1,25 @@
-# --- Interface Streamlit ---
+# Interface web
 streamlit>=1.30.0
 
-# --- OCR & images ---
+# OCR & images
 pytesseract
 pdf2image
 Pillow
 
-# --- Fichiers bureautiques ---
+# Fichiers bureautiques
 python-docx
 PyMuPDF
 
-# --- Extraction texte ---
+# Extraction de texte brut ou OCR
 textract
 
-# --- NLP ---
-spacy==3.7.2         # Version stable compatible avec thinc et numpy
+# NLP & NER
+spacy==3.7.2
 scikit-learn
 
-# --- Modèles de langage avancés ---
-transformers==4.36.2
-torch==2.1.2
-
-# --- Modèle français spaCy (téléchargé automatiquement par pip) ---
+# Modèle français spaCy
 fr_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
+
+# Modèles de langage avancés (version compatible Python 3.10)
+transformers==4.36.2
+torch==2.1.0
