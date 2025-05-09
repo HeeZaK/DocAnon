@@ -1,8 +1,14 @@
 import re
 import spacy
+from spacy.cli import download
 
-# Chargement du modèle français de SpaCy
-nlp = spacy.load("fr_core_news_sm")
+# Essaie de charger le modèle spaCy français, sinon le télécharge
+try:
+    nlp = spacy.load("fr_core_news_sm")
+except OSError:
+    download("fr_core_news_sm")
+    nlp = spacy.load("fr_core_news_sm")
+
 
 def detect_entities_with_offsets(text):
     """
