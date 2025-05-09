@@ -1,34 +1,63 @@
 import os
-import textract  # Pour les formats complexes (optionnel)
-from PyPDF2 import PdfReader  # Pour lire le contenu textuel des PDF
-from docx import Document  # Pour lire les .docx
-from app.ocr import extraire_texte_pdf_scane  # Pour OCR si PDF est scanné
+import mimetypes
+from typing import Optional
+from io import BytesIO
 
-def detect_type_and_extract(fichier):
-    filename = fichier.name.lower()  # Récupère le nom de fichier en minuscule
+# Pour lire les fichiers DOCX
+from docx import Document
 
-    if filename.endswith(".pdf"):
-        try:
-            # Essaye de lire le texte d’un PDF "natif"
-            reader = PdfReader(fichier)
-            texte = "\n".join([page.extract_text() or "" for page in reader.pages])
+# Pour extraire du texte depuis des PDF natifs
+import fitz  # PyMuPDF
 
-            # Si texte vide, probablement scanné => OCR
-            if not texte.strip():
-                fichier.seek(0)  # Revenir au début du fichier
-                texte = extraire_texte_pdf_scane(fichier)
-        except:
-            # Si erreur, tente OCR quand même
-            fichier.seek(0)
-            texte = extraire_texte_pdf_scane(fichier)
-        return texte
+# Pour gérer les PDF scannés (OCR)
+from pdf2image import convert_from_bytes
+import pytesseract
+from PIL import Image
 
-    elif filename.endswith(".docx"):
-        # Lecture standard d’un document Word
-        doc = Document(fichier)
-        texte = "\n".join([para.text for para in doc.paragraphs])
-        return texte
 
-    else:
-        # Format non reconnu
-        raise ValueError("Format non pris en charge. Veuillez fournir un PDF ou DOCX.")
+def extract_text_from_docx(file: BytesIO) -> str:
+    """Lecture simple d’un fichier DOCX"""
+    doc = Document(file)
+    return '\n'.join([para.text for para in doc.paragraphs])
+
+
+def extract_text_from_pdf(file: BytesIO) -> str:
+    """Extraction de texte depuis un PDF avec PyMuPDF"""
+    text = ""
+    with fitz.open(stream=file.read(), filetype="pdf") as doc:
+        for page in doc:
+            text += page.get_text()
+    return text.strip()
+
+
+def extract_text_from_scanned_pdf(file: BytesIO) -> str:
+    """OCR sur un PDF scanné (image en PDF)"""
+    images = convert_from_bytes(file.read())
+    text = ""
+    for img in images:
+        text += pytesseract.image_to_string(img)
+    return text.strip()
+
+
+def extract_text(file: BytesIO, filename: str) -> Optional[str]:
+    """
+    Fonction principale appelée par l’interface.
+    Détecte le type de fichier et applique la méthode d’extraction appropriée.
+    """
+    file.seek(0)
+    ext = os.path.splitext(filename)[1].lower()
+
+    try:
+        if ext == ".docx":
+            return extract_text_from_docx(file)
+        elif ext == ".pdf":
+            # Tentative d’extraction directe (texte natif)
+            text = extract_text_from_pdf(BytesIO(file.read()))
+            if len(text.strip()) < 20:  # Texte trop court → probablement un scan
+                file.seek(0)
+                return extract_text_from_scanned_pdf(file)
+            return text
+        else:
+            return "❌ Format non supporté. Veuillez utiliser un fichier PDF ou DOCX."
+    except Exception as e:
+        return f"⚠️ Erreur lors de l’extraction du texte : {str(e)}"
